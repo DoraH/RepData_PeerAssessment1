@@ -81,3 +81,14 @@ The mean of total number of steps per day does not differ from the estimate from
 When estimating the total number of steps per day, the impact of the missing data seems minimal.
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
+
+```{r}
+Sys.setlocale("LC_TIME", "English")
+weekend = weekdays(as.Date(data$date)) %in% c("Saturday", "Sunday")
+data$daytype = factor(weekend, levels = c(FALSE, TRUE), labels = c("weekday", "weekend"))
+```
+
+2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.
+
