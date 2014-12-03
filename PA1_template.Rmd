@@ -55,7 +55,7 @@ I will use the mean for the 5-minute intervals for filling in all missing values
 
 ```{r}
 data_new <- merge(data, steps_interval, by = "interval", all.y = F)
-nas <- is.na(data_new$steps)
+nas <- is.na(data$steps)
 data_new$steps[nas] <- data_new$steps.y[nas]
 data_new <- data[, c(1:3)]
 ```
