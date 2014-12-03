@@ -97,15 +97,13 @@ day_type <- function(date) {
         "weekday"
     }
 }
-data$day_type <- as.factor(sapply(data$date, day_type))
+data_new$day_type <- as.factor(sapply(data_new$date, day_type))
 ```
 
 2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.
 
-```{r, fig.height = 9, fig.width = 9}
-par(mfrow = c(2,1))
-for (type in c("weekend", "weekday")) {
-    steps_type <- aggregate(steps ~ interval, data, subset = data$day_type == type, mean)
-    plot(steps_type, type="l", main = type)
-}    
+```{r}
+library(ggplot2)
+ave_steps <- aggregate(steps ~ interval + day_type, data_new, mean)
+ggplot(ave_steps, aes(x=interval, y=steps)) + geom_line() + facet_wrap(~ day_type, nrow = 2)
 ```
